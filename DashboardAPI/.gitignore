@@ -1,0 +1,45 @@
+# Binaries and build output
+bin/
+obj/
+artifacts/
+
+# Temporary files
+*.tmp
+*.bak
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+
+# IDE-specific files
+.vs/
+.idea/
+
+# NuGet packages
+Packages/
+node_modules/
+
+# Environment-specific files
+appsettings.*.json
+
+# Other temporary or auto-generated files
+*.log
+*.sqlite3
+*.sqlite
+
+# Debug symbols
+*.pdb
+*.dSYM
+
+# Visual Studio cache files
+*.vspscc
+*.scc
+
+# Caching directories
+/tmp/
+*.webm
+*.bundle
+
+# Dependency management
+vendor/
