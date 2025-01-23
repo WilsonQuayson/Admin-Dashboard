@@ -17,38 +17,36 @@ namespace DashboardAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<DashboardDbContext>(options => options
-                .UseSqlServer(builder.Configuration
-                .GetConnectionString("DefaultConnection"))
+            builder.Services.AddDbContext<DashboardDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
 
-            builder.Services
-                .AddCors(options =>
-                {
-                    options.AddPolicy("AllowAllOrigins",
-                        builder =>
-                        {
-                            builder.WithOrigins("http://localhost:3000") // Replace with your frontend URL
-                            .AllowAnyMethod()
-                            .AllowAnyHeader();
-                        }
-                    );
-                });
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:3000") // Allow your frontend's origin
+                              .AllowAnyHeader() // Allow any headers (e.g., Authorization)
+                              .AllowAnyMethod(); // Allow any HTTP methods (GET, POST, etc.)
+                    });
+            });
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
+            app.UseCors("AllowSpecificOrigin");
+
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
-
-            app.UseCors("AllowAllOrigins");
+            app.UseAuthorization();       
 
             app.MapControllers();
 

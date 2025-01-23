@@ -1,29 +1,16 @@
 import { useEffect, useState } from "react";
+import { Students } from "../../types";
 
 const Home = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<Students[]>([]);
   const [search, setSearch] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const itemsPerPage = 13;
-
-  // Calculate the range of items to display
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = users.slice(indexOfFirstItem, indexOfLastItem);
-
-  const totalPages = Math.ceil(users!.length / itemsPerPage);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
 
   const fetchData = async() => {
     try{
-      const response = await fetch('https://dummyjson.com/users')
+      const response = await fetch('https://localhost:7063/api/Students')
       if(response.ok){
-        const data:MockApi = await response.json();
-        const users: User[] = data.users;
+        const data = await response.json();
+        const users: Students[] = data;
         setUsers(users);
         console.log(users);
       }
@@ -72,23 +59,18 @@ const Home = () => {
               </thead>
               <tbody>
                   {
-                      currentItems!.map((user, index) => (
-                          <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                              <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{user.firstName} {user.lastName}</th>
-                              <td className="px-6 py-4">{user.age}</td>
-                              <td className="px-6 py-4">{user.address.address}</td>
-                              <td className="px-6 py-4">{user.email}</td>
+                      users!.map((student, index) => (
+                          <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                              <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{student.firstName} {student.lastName}</th>
+                              <td className="px-6 py-4">{}</td>
+                              <td className="px-6 py-4">{}</td>
+                              <td className="px-6 py-4">{}</td>
                               <td className="px-6 py-4 text-blue-600">Edit</td>
                           </tr>
                       ))
                   }
               </tbody>
           </table>
-          <div className="flex justify-between w-full mt-4">
-            <button onClick={() => handlePageChange(currentPage - 1)} className="px-4 py-2 mx-2 text-white rounded bg-blue-500 hover:bg-blue-600" disabled={currentPage === 1 || search !== ""}>Previous</button>
-            <p className="px-4 py-2">Page {currentPage} of {totalPages}</p>
-            <button onClick={() => handlePageChange(currentPage + 1)} className="px-4 py-2 mx-2 text-white rounded bg-blue-500 hover:bg-blue-600" disabled={currentPage === totalPages || search !== ""}>Previous</button>   
-          </div>
         </div>
 
     </main>
