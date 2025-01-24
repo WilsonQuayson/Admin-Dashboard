@@ -1,8 +1,8 @@
-export interface Students {
+export interface Student {
     id:          string;
     firstName:   string;
     lastName:    string;
     email:       string;
-    dateOfBirth: Date;
+    dateOfBirth: string;
     performance: number;
 }
