@@ -1,12 +1,54 @@
 import { useEffect, useState } from "react";
 import { Student } from "../../types";
 import ProgressCircle from "@/components/ProgressCircle";
+import StudentModal from "@/components/StudentModal";
 
 const Home = () => {
   const [users, setUsers] = useState<Student[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>();
+  const [modal, setModal] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    dateOfBirth: '',
+    performance: 0,
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+
+    //Ensures YYYY-MM-DD format
+    if (name === "dateOfBirth") {
+      const date = new Date(value);
+      const formattedDate = date.toISOString().split("T")[0];
+      setFormData({ ...formData, [name]: formattedDate });
+    } else {
+        setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const openModal = () => setModal(true);
+  const closeModal = () => setModal(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await fetch('https://localhost:7063/api/Students', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+    });
+    if (response.ok) {
+      alert('Student created successfully');
+    } else {
+      alert('Error creating student');
+    }
+  };
+
 
   const fetchData = async() => {
     try{
@@ -36,47 +78,47 @@ const Home = () => {
 
   return(
     <main className="h-full overflow-hidden flex flex-col">
-        <div className="flex justify-between">
-          <input type="text" placeholder="search..." value={search} onChange={(e) => setSearch(e.target.value)} className="p-1 pl-6 shadow-sm rounded-2xl w-60 focus:outline-none"/>
-          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded text-sm mr-2">Create Student</button>
-        </div>
-        <div className={`${selectedStudent ? "h-[30rem]" : "h-full"} overflow-x-auto sm:rounded-lg mt-2 flex flex-col justify-between pb-2 bg-red-300`}>
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 shadow-md">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3 text-center">
-                  <p>Name</p>
-                </th>
-                <th scope="col" className="px-6 py-3 text-center">
-                  <p>Birthdate</p>
-                </th>
-                <th scope="col" className="px-6 py-3 text-center">
-                  <p>Email</p>
-                </th>
-                <th scope="col" className="px-6 py-3 text-center">
-                  <p>Performance</p>
-                </th>
-                <th scope="col" className="px-6 py-3 text-center">
-                  <p>Action</p>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                users!.map((student, index) => (
-                  <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <td className="px-6 py-4 font-medium whitespace-nowrap dark:text-white flex gap-4 justify-center">{student.firstName} {student.lastName}</td>
-                    <td className="px-6 py-4 text-center">{student.dateOfBirth.split("T")[0]}</td>
-                    <td className="px-6 py-4 text-center">{student.email}</td>
-                    <td className="px-6 py-4 text-center">{student.performance}</td>
-                    <td className="px-6 py-4 text-blue-600 text-center" onClick={() => setSelectedStudent(student)}>View</td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        </div>
-        {/* Selected Student Section */}
+      <div className="flex justify-between">
+        <input type="text" placeholder="search..." value={search} onChange={(e) => setSearch(e.target.value)} className="p-1 pl-6 shadow-sm rounded-2xl w-60 focus:outline-none"/>
+        <button onClick={openModal} className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded text-sm mr-2">Create Student</button>
+      </div>
+      <div className={`${selectedStudent ? "h-[30rem]" : "h-full"} overflow-x-auto sm:rounded-lg mt-2 flex flex-col justify-between pb-2`}>
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-center">
+                <p>Name</p>
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                <p>Birthdate</p>
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                <p>Email</p>
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                <p>Performance</p>
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                <p>Action</p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              users!.map((student, index) => (
+                <tr key={index} className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 ${selectedStudent?.id === student.id ? "bg-slate-100" : ""}`}>
+                  <td className="px-6 py-4 font-medium whitespace-nowrap dark:text-white flex gap-4 justify-center">{student.firstName} {student.lastName}</td>
+                  <td className="px-6 py-4 text-center">{student.dateOfBirth.split("T")[0]}</td>
+                  <td className="px-6 py-4 text-center">{student.email}</td>
+                  <td className="px-6 py-4 text-center">{student.performance}</td>
+                  <td className="px-6 py-4 text-blue-600 text-center" onClick={() => setSelectedStudent(student)}><p className="hover:cursor-pointer">View</p></td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      {/* Selected Student Section */}
       {selectedStudent && (
         <div className="mt-4 p-4 flex-1 bg-white shadow rounded-lg text-gray-500">
           <div className="flex justify-end">
@@ -102,6 +144,19 @@ const Home = () => {
           </div>
         </div>
       )}
+      {/* STUDENT MODAL */}
+      <div className={`${modal ? "" : "hidden"}`}>
+        <StudentModal isOpen={modal} onClose={closeModal}>
+          <form onSubmit={handleSubmit} method="post" className="border-2 border-gray-200 p-2 rounded-xl flex flex-col gap-4 mt-2">
+            <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} required className="border-b-2" />
+            <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} required className="border-b-2" />
+            <input type="email" name="email" placeholder="email" value={formData.email} onChange={handleChange} required className="border-b-2" />
+            <input type="date" name="dateOfBirth" placeholder="email" value={formData.dateOfBirth} onChange={handleChange} required className="border-b-2 text-gray-400" />
+            <input type="number" name="performance" placeholder="performance" value={formData.performance} onChange={handleChange} required className="border-b-2 text-gray-400" />
+            <button type="submit" className="bg-blue-500 rounded-md text-white">Submit</button>
+          </form>
+        </StudentModal>
+      </div>
     </main>
   )
 }
