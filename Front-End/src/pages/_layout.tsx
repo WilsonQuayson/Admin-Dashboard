@@ -18,27 +18,19 @@ const Layout = ({ children } : {children: ReactElement}) => {
                         <p className="uppercase font-medium text-neutral-400 text-sm">main</p>
                         <ul className="flex flex-col gap-6 mt-5">
                             <li>
-                                <Link href="" className="flex flex-row gap-2 pl-4">
+                                <Link href="/" className="flex flex-row gap-2 pl-4">
                                     <svg className="w-6 h-6 text-neutral-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
                                     </svg>
                                     <p className="uppercase font-medium text-neutral-500">Dashboard</p>
                                 </Link>
                             </li>
                             <li>
-                                <Link href="" className="flex flex-row gap-2 pl-4">
+                                <Link href="/students" className="flex flex-row gap-2 pl-4">
                                     <svg className="w-6 h-6 text-neutral-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v15a1 1 0 0 0 1 1h15M8 16l2.5-5.5 3 3L17.273 7 20 9.667"/>
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v15a1 1 0 0 0 1 1h15M8 16l2.5-5.5 3 3L17.273 7 20 9.667"/>
                                     </svg>
-                                    <p className="uppercase font-medium text-neutral-500">Users</p>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="" className="flex flex-row gap-2 pl-4">
-                                    <svg className="w-6 h-6 text-neutral-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
-                                    </svg>
-                                    <p className="uppercase font-medium text-neutral-500">Values</p>
+                                    <p className="uppercase font-medium text-neutral-500">Students</p>
                                 </Link>
                             </li>
                         </ul>
@@ -49,7 +41,7 @@ const Layout = ({ children } : {children: ReactElement}) => {
                             <li>
                                 <Link href="" className="flex flex-row gap-2 pl-4">
                                     <svg className="w-6 h-6 text-neutral-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
                                     </svg>
                                     <p className="uppercase font-medium text-neutral-500">Dashboard</p>
                                 </Link>
@@ -57,7 +49,7 @@ const Layout = ({ children } : {children: ReactElement}) => {
                             <li>
                                 <Link href="" className="flex flex-row gap-2 pl-4">
                                     <svg className="w-6 h-6 text-neutral-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
                                     </svg>
                                     <p className="uppercase font-medium text-neutral-500">Dashboard</p>
                                 </Link>
@@ -69,7 +61,7 @@ const Layout = ({ children } : {children: ReactElement}) => {
                     <p className="uppercase font-medium text-neutral-400 text-sm">Account</p>
                     <button className="uppercase font-medium flex gap-2 pl-4 mt-4">
                         <svg className="w-6 h-6 text-neutral-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
                         </svg>
                         <p className="uppercase font-medium text-neutral-500">Logout</p>
                     </button>
