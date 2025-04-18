@@ -1,15 +1,17 @@
 import Link from "next/link";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 
 const Layout = ({ children } : {children: ReactElement}) => {
+    const [collapse, setCollapse] = useState(false);
     return (
       <section className="max-h-screen overflow-hidden flex gap-4 p-4 bg-pastel-300 font-sans">
-        <section className="bg-pastel-100 w-72 h-[calc(100vh-2rem)] rounded-3xl p-3">
+        <section className={`bg-pastel-100 ${collapse ? "w-20" : "w-72"} transition-all ease-in-out duration-500 h-[calc(100vh-2rem)] rounded-3xl p-3 overflow-hidden`}>
+            <button className={`absolute top-24 w-8 h-8 border-4 border-pastel-300 bg-pastel-100 rounded-full transition-all ease-in-out duration-500 ${collapse ? "left-[5.5rem]" : "left-[18.5rem]"}`} onClick={() => setCollapse(!collapse)}></button>
             <section className="w-full h-20 flex">
-                <img src="https://api.dicebear.com/9.x/identicon/svg?seed=Admin" alt="" className="rounded-full border-2 border-neutral-200 w-20 h-20" />
+                <img src="https://api.dicebear.com/9.x/identicon/svg?seed=Admin" alt="" className={`rounded-full border-2 border-neutral-200 transition-all ease-in-out duration-500 ${collapse ? "w-14 h-14" : "w-20 h-20"}`} />
                 <section className="w-full h-full pl-4">
-                    <h1 className="text-neutral-400 uppercase font-medium mt-3">Administrator</h1>
-                    <p className="text-neutral-600 mt-1 font-medium">John Doe</p>
+                    <h1 className="text-neutral-400 uppercase font-medium mt-3 whitespace-nowrap">Administrator</h1>
+                    <p className="text-neutral-600 mt-1 font-medium whitespace-nowrap">John Doe</p>
                 </section>
             </section>
             <section className="mt-12 pl-2 flex flex-col justify-between h-4/5">
