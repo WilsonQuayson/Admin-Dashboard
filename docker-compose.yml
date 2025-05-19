@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  frontend:
+    build:
+      context: ./Front-End
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./DashboardAPI
+    ports:
+      - "5062:80"
+    depends_on:
+      - db
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=db;Database=Dashboard;User=sa;Password=MyStrong@Pass123!;"
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "MyStrong@Pass123!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
